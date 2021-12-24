@@ -57,4 +57,16 @@ function viz_colored(c::Matrix, colors::Vector{<:Colors.Color}; channel_name::Un
     MeshCat.setobject!(visualizer[channel_name], MeshCat.PointCloud(cloud, colors))
 end
 
+function viz_box(line_segments, channel::Symbol; color=nothing, width=3)
+    if isnothing(color)
+        color = Colors.colorant"red"
+    end
+    MeshCat.setobject!(visualizer[channel],
+    MeshCat.LineSegments(line_segments,
+        MeshCat.LineBasicMaterial(
+            color=color, linewidth=width
+        ))
+    )
+end
+
 end # module
