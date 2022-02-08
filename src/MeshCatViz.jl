@@ -1,7 +1,7 @@
 module MeshCatViz
 
 import MeshCat
-import GeometryBasics: Point, Mesh, GLTriangleFace
+import GeometryBasics: Point, Mesh, GLTriangleFace, HyperSphere
 import Colors
 
 """
@@ -66,6 +66,16 @@ function viz_box(line_segments, channel::Symbol; color=nothing, width=3)
         MeshCat.LineBasicMaterial(
             color=color, linewidth=width
         ))
+    )
+end
+
+function viz_sphere(sphere_point, channel::Symbol; color=nothing, radius=1.0)
+    if isnothing(color)
+        color = Colors.colorant"red"
+    end
+    MeshCat.setobject!(visualizer[channel],
+        HyperSphere(Point(sphere_point[:]...), radius),
+        MeshCat.MeshLambertMaterial(color=color)
     )
 end
 
